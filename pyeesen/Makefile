@@ -10,7 +10,7 @@ LINUX=$(shell lsb_release -sd | sed 's: :_:g')
 EESEN_LIBS = ../src/decoder/decoder.a ../src/lat/lat.a ../src/fstext/fstext.a  \
 	     ../src/feat/feat.a ../src/util/util.a ../src/base/base.a ../src/cpucompute/cpucompute.a
 
-all: decoder_wrapper/decoder.a eesen-dbg/decoder_wrapper.so
+all: decoder_wrapper/decoder.a eesen/decoder_wrapper.so
 
 decoder_wrapper/decoder.a: $(FSTDIR)/lib/libfst.a
 	$(MAKE) -C decoder_wrapper/
