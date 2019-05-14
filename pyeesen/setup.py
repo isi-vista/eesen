@@ -37,28 +37,21 @@ extra_compile_args = ['-std=c++11']
 extra_link_args = []
 
 #TODO compilation flags are prepared only for ubuntu 14.04 and OSX 10.10 64bit version
-if platform == 'darwin':
-    extra_compile_args.append('-stdlib=libstdc++')
-    extra_compile_args.extend(['-arch i386', '-arch x86_64'])
-    extra_link_args.append('-stdlib=libstdc++')
-    library_dirs = []
-    libraries = ['../tools/openfst/lib/libfst.a', 'dl', 'm', 'pthread', ]
-else:
-    library_dirs = ['/usr/lib64', '/usr/lib64/atlas', '../tools/openfst/lib']
-    libraries = ['fst', 'lapack_atlas', 'cblas', 'atlas', 'f77blas', 'm', 'pthread', 'dl']
+library_dirs = ['/usr/lib64', '/usr/lib64/atlas', '../tools/openfst/lib', '/deps/anaconda3/lib/', '../src/lib']
+libraries = ['fst', 'atlas', 'boost_python3', 'boost_numpy3', 'python3.5m', 'm', 'pthread', 'dl', 'base', 'cpucompute',  'decoder',  'decoder_wrapper',  'feat',  'fstext',  'gpucompute',  'lat',  'lm',  'net',  'util',]
+include_dirs = ['../tools/openfst/include', '../src', '/deps/anaconda3/include']
+
 ext_modules.append(Extension('eesen.decoders',
                              language='c++',
                              extra_compile_args=extra_compile_args,
                              extra_link_args=extra_link_args,
-                             include_dirs=['..', '../tools/openfst/include', '../src', '../pyfst', ],
+                             include_dirs=include_dirs,
                              library_dirs=library_dirs,
                              libraries=libraries,
                              extra_objects=extra_objects,
                              sources=['decoder_wrapper/decoder_wrapper.cpp', ],
                              ))
 
-
-long_description = open(path.join(path.dirname(__file__), 'README.rst')).read()
 
 setup(
     name='pyeesen',
@@ -71,14 +64,13 @@ setup(
     setup_requires=['cython>=0.19.1', 'nose>=1.0'],
     ext_modules=ext_modules,
     test_suite="nose.collector",
-    tests_require=['nose>=1.0', 'pykaldi'],
+    tests_require=['nose>=1.0'],
     author='Ondrej Platek',
     author_email='oplatek@ufal.mff.cuni.cz',
     url='https://github.com/DSG-UFAL/pyeesen',
     license='Apache, Version 2.0',
     keywords='eesen speech recognition Python bindings',
     description='C++/Python wrapper for eesen decoders',
-    long_description=long_description,
     classifiers='''
         Programming Language :: Python :: 2
         License :: OSI Approved :: Apache License, Version 2
