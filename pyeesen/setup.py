@@ -13,12 +13,14 @@ from Cython.Distutils import build_ext
 from os import environ
 from sys import stderr
 from sys import platform
+import os
+
+os.environ["CC"] = "g++"
 
 install_requires = ['cython>=0.21', 'pystache>=0.5', 'pyyaml>=3.11']
 if python_version < (2, 7):
     new_27 = ['ordereddict', 'argparse']
     install_requires.extend(new_27)
-
 
 ext_modules = []
 # pyeesen static library compilation (extension is always built as shared) 
