@@ -16,7 +16,6 @@ from sys import platform
 import os
 
 os.environ["CC"] = "g++"
-
 install_requires = ['cython>=0.21', 'pystache>=0.5', 'pyyaml>=3.11']
 if python_version < (2, 7):
     new_27 = ['ordereddict', 'argparse']
@@ -35,13 +34,13 @@ try:
 except:
     version = 'dev-unknown'
 
-extra_compile_args = ['-std=c++0x', '-msse', '-msse2', '-Wno-sign-compare', '-DHAVE_OPENFST_GE_10400', '-DHAVE_POSIX_MEMALIGN', '-Wno-unused-local-typedefs', '-Winit-self', '-rdynamic', '-DHAVE_CXXABI_H',  ]
+extra_compile_args = ['-std=c++0x', '-msse', '-msse2', '-Wno-sign-compare', '-DHAVE_OPENFST_GE_10400', '-DHAVE_POSIX_MEMALIGN', '-Wno-unused-local-typedefs', '-Winit-self', '-rdynamic', '-DHAVE_CXXABI_H', '-DHAVE_ATLAS']
 extra_link_args = []
 
 #TODO compilation flags are prepared only for ubuntu 14.04 and OSX 10.10 64bit version
 library_dirs = ['/usr/lib64', '/usr/lib64/atlas', '../tools/openfst/lib', '/deps/anaconda3/lib/', '../src/lib']
 libraries = ['fst', 'atlas', 'boost_python3', 'boost_numpy3', 'python3.5m', 'm', 'pthread', 'dl', 'base', 'cpucompute',  'decoder',  'decoder_wrapper',  'feat',  'fstext',  'gpucompute',  'lat',  'lm',  'net',  'util',]
-include_dirs = ['../tools/openfst/include', '../src', '/deps/anaconda3/include']
+include_dirs = ['../tools/openfst/include', '../src', '/deps/anaconda3/include', '../tools/ATLAS/']
 
 ext_modules.append(Extension('eesen.decoders',
                              language='c++',
