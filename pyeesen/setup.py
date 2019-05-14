@@ -35,7 +35,7 @@ try:
 except:
     version = 'dev-unknown'
 
-extra_compile_args = ['-std=c++11']
+extra_compile_args = ['-std=c++0x', '-msse', '-msse2', '-Wno-sign-compare', '-DHAVE_OPENFST_GE_10400', '-DHAVE_POSIX_MEMALIGN', '-Wno-unused-local-typedefs', '-Winit-self', '-rdynamic', '-DHAVE_CXXABI_H',  ]
 extra_link_args = []
 
 #TODO compilation flags are prepared only for ubuntu 14.04 and OSX 10.10 64bit version
